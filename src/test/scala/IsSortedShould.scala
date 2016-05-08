@@ -1,3 +1,5 @@
+import java.util.Date
+
 import chapter2.exercise1.Fib
 import chapter2.exercise2.IsSorted
 import org.scalatest.FreeSpec
@@ -8,7 +10,7 @@ import org.scalatest.time.{Millis, Seconds, Span}
   * Created by lbajor on 2016-05-08.
   */
 class IsSortedShould extends FreeSpec with TimeLimitedTests {
-  val timeLimit = Span(100, Millis)
+  val timeLimit = Span(600, Millis)
 
   "IsSorted.isSorted should" - {
 
@@ -34,7 +36,9 @@ class IsSortedShould extends FreeSpec with TimeLimitedTests {
 
     "return true for 10000 el sorted array with proper comp function" in {
       val ar = (1 to 10000).toArray
+
       assert(true === IsSorted.isSorted(ar, (a: Int, b: Int) => a < b))
+
     }
   }
 }

@@ -1,10 +1,14 @@
 import chapter2.exercise1.Fib
 import org.scalatest.FreeSpec
+import org.scalatest.concurrent.TimeLimitedTests
+import org.scalatest.time.{Span, Seconds}
 
 /**
   * Created by lbajor on 2016-05-08.
   */
-class FibShould extends FreeSpec {
+class FibShould extends FreeSpec with TimeLimitedTests {
+  val timeLimit = Span(1, Seconds)
+
   "Fib.fib should" - {
     "return 0 as first fibonacci number" in {
       assert( 0 === Fib.fib(0) )
@@ -24,6 +28,10 @@ class FibShould extends FreeSpec {
 
     "return 3 as 4th fibonacci number" in {
       assert( 3 === Fib.fib(4) )
+    }
+
+    "use tail recursion to quickly return 1134903170 as 45th fibonacci number" in {
+      assert(1134903170 === Fib.fib(45))
     }
   }
 }

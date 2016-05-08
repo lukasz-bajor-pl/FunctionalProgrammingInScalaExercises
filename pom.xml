@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>bajor.lukasz</groupId>
-    <artifactId>exhaustive-basket-pricer-scala</artifactId>
+    <artifactId>fp-in-scala-exercises</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Scala Exhaustive Basket Pricer</name>
+    <name>Functional Programming in Scala - Exercises</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

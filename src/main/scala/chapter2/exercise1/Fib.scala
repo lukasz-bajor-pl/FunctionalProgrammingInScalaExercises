@@ -16,12 +16,6 @@ object Fib {
       }
     }
 
-    def initialTailRecFib(n: Int) = tailRecFib ((0, 0), (1, 1)) (n)
-
-    n match {
-      case 0 => 0
-      case 1 => 1
-      case _ => initialTailRecFib(n - 1) + initialTailRecFib(n - 2)
-    }
+    tailRecFib ((0, 0), (1, 1)) (n)
   }
 }

@@ -17,5 +17,9 @@ class FibShould extends FreeSpec {
     "return 1 as 2nd fibonacci number" in {
       assert( 1 === Fib.fib(2) )
     }
+
+    "return 2 as 3rd fibonacci number" in {
+      assert( 2 === Fib.fib(3) )
+    }
   }
 }

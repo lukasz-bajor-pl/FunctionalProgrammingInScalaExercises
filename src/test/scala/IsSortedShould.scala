@@ -15,5 +15,9 @@ class IsSortedShould extends FreeSpec with TimeLimitedTests {
     "return true for empty array" in {
       assert(true === IsSorted.isSorted(Array[Int](), (a: Int, b: Int) => false))
     }
+
+    "return true for one element array" in {
+      assert(true === IsSorted.isSorted(Array[Int](1), (a: Int, b: Int) => false))
+    }
   }
 }

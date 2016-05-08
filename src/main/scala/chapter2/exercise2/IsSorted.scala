@@ -8,6 +8,6 @@ object IsSorted {
   as.length match {
     case 0 => true
     case 1 => true
-    case _ => ordered(as.head, as.tail.head) && isSorted(as.tail.tail, ordered)
+    case _ => ordered(as(0), as(1)) && isSorted(as.tail, ordered)
   }
 }

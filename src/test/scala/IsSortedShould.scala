@@ -23,5 +23,9 @@ class IsSortedShould extends FreeSpec with TimeLimitedTests {
     "return false for 2 el array with function returning false" in {
       assert(false === IsSorted.isSorted(Array[Int](1, 2), (a: Int, b: Int) => false))
     }
+
+    "return true for 2 el array with function returning true" in {
+      assert(true === IsSorted.isSorted(Array[Int](1, 2), (a: Int, b: Int) => true))
+    }
   }
 }

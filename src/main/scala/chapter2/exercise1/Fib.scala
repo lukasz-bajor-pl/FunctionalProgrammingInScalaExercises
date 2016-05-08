@@ -7,6 +7,7 @@ object Fib {
   def fib(n: Int): Int =
     n match {
       case 0 => 0
-      case _ => 1
+      case 1 => 1
+      case _ => fib(n-1) + fib(n-2)
     }
 }

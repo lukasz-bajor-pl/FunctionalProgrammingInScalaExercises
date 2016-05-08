@@ -12,7 +12,7 @@ class CurryShould extends FreeSpec {
   "Curry.curry should" - {
 
     "compile" in {
-      Curry.curry((a: Int, b: String) => true)
+      assert(true === Curry.curry((a: Int, b: String) => true)(1)("abc"))
     }
   }
 }

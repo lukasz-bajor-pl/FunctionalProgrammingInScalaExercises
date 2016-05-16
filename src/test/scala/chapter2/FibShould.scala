@@ -1,7 +1,9 @@
+package chapter2
+
 import chapter2.exercise1.Fib
 import org.scalatest.FreeSpec
 import org.scalatest.concurrent.TimeLimitedTests
-import org.scalatest.time.{Span, Seconds}
+import org.scalatest.time.{Seconds, Span}
 
 /**
   * Created by lbajor on 2016-05-08.

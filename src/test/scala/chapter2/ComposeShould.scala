@@ -1,4 +1,5 @@
-import chapter2.exercise4.Uncurry
+package chapter2
+
 import chapter2.exercise5.Compose
 import org.scalatest.FreeSpec
 

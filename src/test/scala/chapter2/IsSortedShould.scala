@@ -1,10 +1,9 @@
-import java.util.Date
+package chapter2
 
-import chapter2.exercise1.Fib
 import chapter2.exercise2.IsSorted
 import org.scalatest.FreeSpec
 import org.scalatest.concurrent.TimeLimitedTests
-import org.scalatest.time.{Millis, Seconds, Span}
+import org.scalatest.time.{Millis, Span}
 
 /**
   * Created by lbajor on 2016-05-08.

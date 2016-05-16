@@ -5,17 +5,14 @@ package chapter2.exercise1
   */
 object Fib {
   def fib(n: Int): Int = {
-    type FibValue = (Int, Int)
-
     @annotation.tailrec
-    def tailRecFib(prePrevFib: FibValue, prevFib: FibValue, n: Int): Int = {
+    def tailRecFib(prePrevFib: Int, prevFib: Int, n: Int): Int = {
       n match {
-        case prePrevFib._1 => prePrevFib._2
-        case prevFib._1 => prevFib._2
-        case _ => tailRecFib(prevFib, (prevFib._1 + 1, prevFib._2 + prePrevFib._2), n)
+        case 0 => prePrevFib
+        case _ => tailRecFib(prevFib, prePrevFib+prevFib, n-1)
       }
     }
 
-    tailRecFib ((0, 0), (1, 1), n)
+    tailRecFib (0, 1, n)
   }
 }

@@ -5,9 +5,9 @@ package chapter3
   */
 object Chapter3 {
   def exercise1() = {
-    List(1,2,3,4,5) match {
+    scala.collection.immutable.List(1,2,3,4,5) match {
       case x :: 2 :: 4 :: _ => x
-      case Nil => 42
+      case scala.collection.immutable.Nil => 42
       case x :: y :: 3 :: 4 :: _ => x+y
       case _ => 101
     }

@@ -17,4 +17,6 @@ object List {
     case Nil => throw new UnsupportedOperationException("Cannot get tail of empty list.")
     case Cons(h, rest) => rest
   }
+
+  def drop[A](l: List[A], n: Int): List[A] = ???
 }

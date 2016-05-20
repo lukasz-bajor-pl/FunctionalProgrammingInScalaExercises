@@ -38,4 +38,14 @@ class ListShould extends FreeSpec {
       assert(List(3) === List.drop(List(1,2,3), 2))
     }
   }
+
+  "List.setHead should " - {
+    "return List(1) for List.setHead(Nil, 1)" in {
+      assert(List(1) === List.setHead(Nil, 1))
+    }
+
+    "return List(1,2) for List.setHead(List(2,2), 1)" in {
+      assert(List(1,2) === List.setHead(List(2,2), 1))
+    }
+  }
 }

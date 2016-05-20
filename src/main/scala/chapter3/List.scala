@@ -38,5 +38,11 @@ object List {
   }
 
   //3.6
-  def init[A](l: List[A]) = ???
+  def init[A](l: List[A]) : List[A] = l match {
+    case Nil => throw new UnsupportedOperationException("Cannot remove last element from empty list.")
+    case Cons(x, xs) => xs match {
+      case Nil => Nil
+      case _ => new Cons(x, init(xs))
+    }
+  }
 }

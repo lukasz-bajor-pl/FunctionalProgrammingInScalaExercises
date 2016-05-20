@@ -18,5 +18,15 @@ object List {
     case Cons(h, rest) => rest
   }
 
-  def drop[A](l: List[A], n: Int): List[A] = ???
+  def drop[A](l: List[A], n: Int): List[A] = {
+    require(n >= 0, "Cannot remove " + n + " elements from the list.")
+
+    n match {
+      case 0 => l
+      case _ => l match {
+        case Nil => throw new UnsupportedOperationException("Cannot remove elements from empty list.")
+        case Cons(x, xs) => drop(xs, n-1)
+      }
+    }
+  }
 }

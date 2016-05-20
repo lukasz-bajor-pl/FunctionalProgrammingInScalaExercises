@@ -10,16 +10,16 @@ class ListShould extends FreeSpec {
   "List.tail should " - {
     "throw UOE on empty list" in {
       intercept[UnsupportedOperationException] {
-        Nil.tail
+        List.tail(Nil)
       }
     }
 
     "return Nil for 1 element list" in {
-      assert(Nil === List(1).tail)
+      assert(Nil === List.tail(List(1)))
     }
 
     "return list without 1st element" in {
-      assert(List(2,3) === List(1,2,3).tail)
+      assert(List(2,3) === List.tail(List(1,2,3)))
     }
   }
 }

@@ -8,9 +8,25 @@ case object Nil extends List[Nothing]
 case class Cons[+A](head: A, tail: List[A]) extends List[A]
 
 object List {
-  def apply[A](as: A*): List[A] =
-    if (as.isEmpty) Nil
-    else Cons(as.head, apply(as.tail: _*))
+  def apply[A](as: A*): List[A] = {
+    def reverse(l: List[A]) = {
+      @annotation.tailrec
+      def reverseRec(l: List[A], result: List[A]): List[A] = l match {
+        case Nil => result
+        case Cons(x, xs) => reverseRec(xs, new Cons(x, result))
+      }
+
+      reverseRec(l, Nil)
+    }
+
+    @annotation.tailrec
+    def go(acc: List[A], as: A*): List[A] = {
+      if (as.isEmpty) acc
+      else go(new Cons(as.head, acc), as.tail: _*)
+    }
+
+    reverse(go(Nil, as: _*))
+  }
 
   //3.3
   def tail[A](l: List[A]) = l match {
@@ -55,5 +71,6 @@ object List {
   def productFR(as: List[Double]) = foldRight(as, 1.0) (_*_)
 
   //3.9
-//  def lengthFR[A](as: List[A]) = ???
+  def lengthFR[A](as: List[A]) =
+    foldRight(as, 0) ((l, len) => len+1)
 }

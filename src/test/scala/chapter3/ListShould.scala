@@ -88,4 +88,22 @@ class ListShould extends FreeSpec {
       assert(List(1,2,3) === List.foldRight(List(1,2,3), Nil:List[Int])(new Cons(_,_)))
     }
   }
+
+  "3.9 List.lengthFR should " - {
+    "return 0 for Nil" in {
+      assert(0 === List.lengthFR(Nil))
+    }
+
+    "return 3 for List(1.2.3)" in {
+      assert(3 === List.lengthFR(List(1,2,3)))
+    }
+
+    "fail with Stack overflow for List of length 100 000 elements" in {
+      val range = (1 to 1000000)
+      assert(1000000 === List.lengthFR(List(range: _*)))
+//      intercept[StackOverflowError] {
+//        List.lengthFR(List(1 to 1000000))
+//      }
+    }
+  }
 }

@@ -18,6 +18,7 @@ object List {
     case Cons(h, rest) => rest
   }
 
+  //3.4
   def drop[A](l: List[A], n: Int): List[A] = {
     require(n >= 0, "Cannot remove " + n + " elements from the list.")
 
@@ -29,4 +30,7 @@ object List {
       }
     }
   }
+
+  //3.5
+  def setHead[A](l: List[A], newHead: A) = ???
 }

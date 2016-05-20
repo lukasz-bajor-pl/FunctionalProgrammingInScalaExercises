@@ -53,4 +53,7 @@ object List {
 
   //3.7 - don't know how to short-cirtut once element is 0
   def productFR(as: List[Double]) = foldRight(as, 1.0) (_*_)
+
+  //3.9
+//  def lengthFR[A](as: List[A]) = ???
 }

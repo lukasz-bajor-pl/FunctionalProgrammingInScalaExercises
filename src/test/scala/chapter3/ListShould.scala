@@ -78,4 +78,14 @@ class ListShould extends FreeSpec {
       assert(0.0 === List.productFR(List(2,0,3)))
     }
   }
+
+  "3.8 fold right / Cons constructor relation should " - {
+    "return Nil on foldRight(Nil, Nil)(new Cons(_,_)" in {
+      assert(Nil === List.foldRight(Nil:List[Int], Nil:List[Int])(new Cons(_,_)))
+    }
+
+    "return List(1.2.3) on foldRight(List(1,2,3), Nil)(new Cons(_,_)" in {
+      assert(List(1,2,3) === List.foldRight(List(1,2,3), Nil:List[Int])(new Cons(_,_)))
+    }
+  }
 }

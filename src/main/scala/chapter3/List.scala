@@ -36,4 +36,7 @@ object List {
     case Nil => new Cons(newHead, Nil)
     case Cons(h, rest) => new Cons(newHead, rest)
   }
+
+  //3.6
+  def init[A](l: List[A]) = ???
 }

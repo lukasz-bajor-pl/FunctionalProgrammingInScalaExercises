@@ -48,4 +48,20 @@ class ListShould extends FreeSpec {
       assert(List(1,2) === List.setHead(List(2,2), 1))
     }
   }
+
+  "List.init should " - {
+    "throw UOE on empty list" in {
+      intercept[UnsupportedOperationException] {
+        List.init(Nil)
+      }
+    }
+
+    "return Nil for List.init(List(1)))" in {
+      assert(Nil === List.init(List(1)))
+    }
+
+    "return List(1) for List.init(List(1,2))" in {
+      assert(List(1) === List.init(List(1,2)))
+    }
+  }
 }

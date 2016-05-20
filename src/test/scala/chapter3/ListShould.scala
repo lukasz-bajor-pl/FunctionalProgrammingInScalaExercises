@@ -99,11 +99,9 @@ class ListShould extends FreeSpec {
     }
 
     "fail with Stack overflow for List of length 100 000 elements" in {
-      val range = (1 to 1000000)
-      assert(1000000 === List.lengthFR(List(range: _*)))
-//      intercept[StackOverflowError] {
-//        List.lengthFR(List(1 to 1000000))
-//      }
+      intercept[StackOverflowError] {
+        List.lengthFR(List((1 to 1000000): _*))
+      }
     }
   }
 }

@@ -45,4 +45,12 @@ object List {
       case _ => new Cons(x, init(xs))
     }
   }
+
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = as match {
+    case Nil => z
+    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+  }
+
+  //3.7 - don't know how to short-cirtut once element is 0
+  def productFR(as: List[Double]) = foldRight(as, 1.0) (_*_)
 }

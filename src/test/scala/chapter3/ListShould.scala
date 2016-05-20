@@ -64,4 +64,18 @@ class ListShould extends FreeSpec {
       assert(List(1) === List.init(List(1,2)))
     }
   }
+
+  "List.productFR should " - {
+    "return 1.0 on Nil" in {
+      assert(1.0 === List.productFR(Nil))
+    }
+
+    "return 2 for List.productFR(List(2)))" in {
+      assert(2.0 === List.productFR(List(2)))
+    }
+
+    "return 0 for List.productFR(List(2,0,3))" in {
+      assert(0.0 === List.productFR(List(2,0,3)))
+    }
+  }
 }

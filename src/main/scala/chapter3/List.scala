@@ -4,7 +4,9 @@ package chapter3
   * Created by lbajor on 2016-05-17.
   */
 sealed trait List[+A]
+
 case object Nil extends List[Nothing]
+
 case class Cons[+A](head: A, tail: List[A]) extends List[A]
 
 object List {
@@ -42,7 +44,7 @@ object List {
       case 0 => l
       case _ => l match {
         case Nil => throw new UnsupportedOperationException("Cannot remove elements from empty list.")
-        case Cons(x, xs) => drop(xs, n-1)
+        case Cons(x, xs) => drop(xs, n - 1)
       }
     }
   }
@@ -54,7 +56,7 @@ object List {
   }
 
   //3.6
-  def init[A](l: List[A]) : List[A] = l match {
+  def init[A](l: List[A]): List[A] = l match {
     case Nil => throw new UnsupportedOperationException("Cannot remove last element from empty list.")
     case Cons(x, xs) => xs match {
       case Nil => Nil
@@ -68,9 +70,22 @@ object List {
   }
 
   //3.7 - don't know how to short-cirtut once element is 0
-  def productFR(as: List[Double]) = foldRight(as, 1.0) (_*_)
+  def productFR(as: List[Double]) = foldRight(as, 1.0)(_ * _)
 
   //3.9
   def lengthFR[A](as: List[A]) =
-    foldRight(as, 0) ((l, len) => len+1)
+    foldRight(as, 0)((l, len) => len + 1)
+
+  //3.10
+  def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = {
+    def go(as: List[A], t: B): B = as match {
+        case Nil => t
+        case Cons(x, xs) => go(xs, f(t, x))
+      }
+
+    go(as, z)
+  }
+
+  def lengthFL[A](l: List[A]) =
+    foldLeft(l, 0)((len, l) => len+1)
 }

@@ -19,7 +19,7 @@ class ListShould extends FreeSpec {
     }
 
     "return list without 1st element" in {
-      assert(List(2,3) === List.tail(List(1,2,3)))
+      assert(List(2, 3) === List.tail(List(1, 2, 3)))
     }
   }
 
@@ -35,7 +35,7 @@ class ListShould extends FreeSpec {
     }
 
     "return list without x first elements" in {
-      assert(List(3) === List.drop(List(1,2,3), 2))
+      assert(List(3) === List.drop(List(1, 2, 3), 2))
     }
   }
 
@@ -45,7 +45,7 @@ class ListShould extends FreeSpec {
     }
 
     "return List(1,2) for List.setHead(List(2,2), 1)" in {
-      assert(List(1,2) === List.setHead(List(2,2), 1))
+      assert(List(1, 2) === List.setHead(List(2, 2), 1))
     }
   }
 
@@ -61,7 +61,7 @@ class ListShould extends FreeSpec {
     }
 
     "return List(1) for List.init(List(1,2))" in {
-      assert(List(1) === List.init(List(1,2)))
+      assert(List(1) === List.init(List(1, 2)))
     }
   }
 
@@ -75,33 +75,37 @@ class ListShould extends FreeSpec {
     }
 
     "return 0 for List.productFR(List(2,0,3))" in {
-      assert(0.0 === List.productFR(List(2,0,3)))
+      assert(0.0 === List.productFR(List(2, 0, 3)))
     }
   }
 
   "3.8 fold right / Cons constructor relation should " - {
     "return Nil on foldRight(Nil, Nil)(new Cons(_,_)" in {
-      assert(Nil === List.foldRight(Nil:List[Int], Nil:List[Int])(new Cons(_,_)))
+      assert(Nil === List.foldRight(Nil: List[Int], Nil: List[Int])(new Cons(_, _)))
     }
 
     "return List(1.2.3) on foldRight(List(1,2,3), Nil)(new Cons(_,_)" in {
-      assert(List(1,2,3) === List.foldRight(List(1,2,3), Nil:List[Int])(new Cons(_,_)))
+      assert(List(1, 2, 3) === List.foldRight(List(1, 2, 3), Nil: List[Int])(new Cons(_, _)))
     }
   }
 
-  "3.9 List.lengthFR should " - {
+  "3.9 List.lengthFR / lengthFL should " - {
     "return 0 for Nil" in {
       assert(0 === List.lengthFR(Nil))
     }
 
     "return 3 for List(1.2.3)" in {
-      assert(3 === List.lengthFR(List(1,2,3)))
+      assert(3 === List.lengthFR(List(1, 2, 3)))
     }
 
     "fail with Stack overflow for List of length 100 000 elements" in {
       intercept[StackOverflowError] {
-        List.lengthFR(List((1 to 1000000): _*))
+        List.lengthFR(List((1 to 100000): _*))
       }
+    }
+
+    "lengthFL should not fail with Stack overflow for List of length 100 000 elements" in {
+      assert(100000 === List.lengthFL(List((1 to 100000): _*)))
     }
   }
 }

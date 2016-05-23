@@ -153,4 +153,20 @@ class ListShould extends FreeSpec {
       assert(List(3,2,1) === List.reverseFL(List(1,2,3)))
     }
   }
+
+  "3.13 foldLeftAsFR should" - {
+    "reverse list" in {
+      assert(List(3,2,1) === List.foldLeftAsFR(List(1,2,3), Nil: List[Int])((z, el) => new Cons(el, z)))
+    }
+  }
+
+  "3.13 foldRightAsFL should" - {
+    "not reverse list" in {
+      assert(List(1,2,3) === List.foldRightAsFL(List(1,2,3), Nil: List[Int])((el, z) => new Cons(el, z)))
+    }
+
+    "foldRightAsFL is tail recursive" in {
+      List.foldRightAsFL(List((1 to 100000): _*), 0)((el, z) => z+1)
+    }
+  }
 }

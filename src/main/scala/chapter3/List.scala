@@ -43,6 +43,7 @@ object List {
   }
 
   //3.4
+  @annotation.tailrec
   def drop[A](l: List[A], n: Int): List[A] = {
     require(n >= 0, "Cannot remove " + n + " elements from the list.")
 
@@ -56,6 +57,7 @@ object List {
   }
 
   //3.5
+  @annotation.tailrec
   def dropWhile[A](l: List[A], f: A => Boolean): List[A] = {
     l match {
       case Nil => Nil

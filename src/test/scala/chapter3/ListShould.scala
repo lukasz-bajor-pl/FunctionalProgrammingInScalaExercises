@@ -199,4 +199,14 @@ class ListShould extends FreeSpec {
       assert(List(3,4,5) === List.increase(List(1,2,3), 2))
     }
   }
+
+  "3.17 doubleToString should" - {
+    "return Nil for Nil" in {
+      assert(Nil === List.doubleToString(Nil))
+    }
+
+    "return List(\"1.0\",\"2.0\") for List(1.0,2.0)" in {
+      assert(List("1.0", "2.0") === List.doubleToString(List(1.0,2.0)))
+    }
+  }
 }

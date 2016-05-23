@@ -142,4 +142,12 @@ object List {
       case Cons(x, xs) => Cons(x+inc, increase(xs, inc))
     }
   }
+
+  //3.17
+  def doubleToString(l: List[Double]): List[String] = {
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) => Cons(x.toString, doubleToString(xs))
+    }
+  }
 }

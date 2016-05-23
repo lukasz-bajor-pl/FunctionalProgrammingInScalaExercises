@@ -125,4 +125,32 @@ class ListShould extends FreeSpec {
       assert(0.0 === List.lazyFoldRight(new Cons(0.0, longTail), 1.0)((el, z) => if (el == 0.0) 0.0 else z))
     }
   }
+
+  "3.11 sum / product / length as fold left should " - {
+    "sumFL return 0 for Nil" in {
+      assert(0 === List.sumFL(Nil: List[Int]))
+    }
+
+    "sumFL return 6 for List(1,2,3)" in {
+      assert(6 === List.sumFL(List(1,2,3)))
+    }
+
+    "productFL return 1.0 for Nil" in {
+      assert(1.0 === List.productFL(Nil: List[Double]))
+    }
+
+    "productFL return 24 for List(1,2,3,4)" in {
+      assert(24 === List.productFL(List(1.0,2.0,3.0,4.0)))
+    }
+  }
+
+  "3.12 reverse as fold left should " - {
+    "return Nil for Nil" in {
+      assert(Nil === List.reverseFL(Nil))
+    }
+
+    "return List(3,2,1) for List(1,2,3)" in {
+      assert(List(3,2,1) === List.reverseFL(List(1,2,3)))
+    }
+  }
 }

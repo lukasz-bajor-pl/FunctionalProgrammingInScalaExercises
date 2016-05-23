@@ -98,12 +98,20 @@ object List {
     go(as, z)
   }
 
-  def lengthFL[A](l: List[A]) =
-    foldLeft(l, 0)((len, l) => len+1)
-
   //3.7 with short circuiting
   def lazyFoldRight[A, B](a: List[A], z: B)(f: (A, =>B) => B): B = a match {
     case Nil => z
     case Cons(x, xs) => f(x, lazyFoldRight(xs, z)(f))
   }
+
+  //3.11
+  def sumFL(l: List[Int]) = foldLeft(l, 0)(_+_)
+
+  def productFL(l: List[Double]) = foldLeft(l, 1.0)(_*_)
+
+  def lengthFL[A](l: List[A]) =
+    foldLeft(l, 0)((len, l) => len+1)
+
+  //3.12
+  def reverseFL[A](l: List[A]) = foldLeft(l, Nil:List[A])((z, el) => new Cons(el, z))
 }

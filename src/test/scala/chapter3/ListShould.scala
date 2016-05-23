@@ -169,4 +169,14 @@ class ListShould extends FreeSpec {
       List.foldRightAsFL(List((1 to 100000): _*), 0)((el, z) => z+1)
     }
   }
+
+  "3.14 append should" - {
+    "return List(1) after appending 1 to Nil" in {
+      assert(List(1) === List.append(Nil: List[Int], 1))
+    }
+
+    "return List(1, 2) after appending 2 to List(1)" in {
+      assert(List(1,2) === List.append(List(1), 2))
+    }
+  }
 }

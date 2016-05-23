@@ -119,4 +119,11 @@ object List {
   //3.13
   def foldLeftAsFR[A, B](as: List[A], z: B)(f: (B, A) => B): B = foldRight[A, B](reverseFL(as), z)((a, b) => f(b,a))
   def foldRightAsFL[A, B](as: List[A], z: B)(f: (A, B) => B): B = foldLeft[A, B](reverseFL(as), z)((a, b) => f(b,a))
+
+  //3.14
+  def append[A](l: List[A], e: A): List[A] = l match {
+    case Nil => Cons(e, l)
+    case Cons(x, xs) => new Cons(x, append(xs, e))
+  }
+
 }

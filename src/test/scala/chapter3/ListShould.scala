@@ -118,4 +118,11 @@ class ListShould extends FreeSpec {
       assert(100000 === List.lengthFL(List((1 to 100000): _*)))
     }
   }
+
+  "3.7 short circuiting using lazy foldright should " - {
+    "work on very long sequence when calculating product when one of elements is 0" in {
+      val longTail = List((1 to 200000).map(_.toDouble): _*)
+      assert(0.0 === List.lazyFoldRight(new Cons(0.0, longTail), 1.0)((el, z) => if (el == 0.0) 0.0 else z))
+    }
+  }
 }

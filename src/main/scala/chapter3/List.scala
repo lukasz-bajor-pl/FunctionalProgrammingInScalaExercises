@@ -100,4 +100,10 @@ object List {
 
   def lengthFL[A](l: List[A]) =
     foldLeft(l, 0)((len, l) => len+1)
+
+  //3.7 with short circuiting
+  def lazyFoldRight[A, B](a: List[A], z: B)(f: (A, =>B) => B): B = a match {
+    case Nil => z
+    case Cons(x, xs) => f(x, lazyFoldRight(xs, z)(f))
+  }
 }

@@ -30,10 +30,16 @@ object List {
     reverse(go(Nil, as: _*))
   }
 
-  //3.3
+  //3.2
   def tail[A](l: List[A]) = l match {
     case Nil => throw new UnsupportedOperationException("Cannot get tail of empty list.")
     case Cons(h, rest) => rest
+  }
+
+  //3.3
+  def setHead[A](l: List[A], newHead: A) = l match {
+    case Nil => new Cons(newHead, Nil)
+    case Cons(h, rest) => new Cons(newHead, rest)
   }
 
   //3.4
@@ -50,9 +56,13 @@ object List {
   }
 
   //3.5
-  def setHead[A](l: List[A], newHead: A) = l match {
-    case Nil => new Cons(newHead, Nil)
-    case Cons(h, rest) => new Cons(newHead, rest)
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = {
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) =>
+        if (f(x)) dropWhile(xs, f)
+        else l
+    }
   }
 
   //3.6

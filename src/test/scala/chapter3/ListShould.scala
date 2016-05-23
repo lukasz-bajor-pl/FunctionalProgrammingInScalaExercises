@@ -23,6 +23,16 @@ class ListShould extends FreeSpec {
     }
   }
 
+  "List.setHead should " - {
+    "return List(1) for List.setHead(Nil, 1)" in {
+      assert(List(1) === List.setHead(Nil, 1))
+    }
+
+    "return List(1,2) for List.setHead(List(2,2), 1)" in {
+      assert(List(1, 2) === List.setHead(List(2, 2), 1))
+    }
+  }
+
   "List.drop should " - {
     "throw UOE on empty list" in {
       intercept[UnsupportedOperationException] {
@@ -39,13 +49,13 @@ class ListShould extends FreeSpec {
     }
   }
 
-  "List.setHead should " - {
-    "return List(1) for List.setHead(Nil, 1)" in {
-      assert(List(1) === List.setHead(Nil, 1))
+  "List.dropWhile should " - {
+    "return Nil on empty list" in {
+      assert(Nil === List.dropWhile[Int](Nil, e => true))
     }
 
-    "return List(1,2) for List.setHead(List(2,2), 1)" in {
-      assert(List(1, 2) === List.setHead(List(2, 2), 1))
+    "drop first element on List(1,2) and predicate e <= 1" in {
+      assert(List(2) === List.dropWhile(List(1,2), (e:Int) => e <= 1 ))
     }
   }
 

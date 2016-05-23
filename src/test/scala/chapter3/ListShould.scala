@@ -179,4 +179,14 @@ class ListShould extends FreeSpec {
       assert(List(1,2) === List.append(List(1), 2))
     }
   }
+
+  "3.15 concatenate lists should" - {
+    "return Nil for Nil" in {
+      assert(Nil === List.concatenate(Nil: List[List[Int]]))
+    }
+
+    "return List(1,2,3) for List(List(1,2),List(3))" in {
+      assert(List(1,2,3) === List.concatenate(List(List(1,2), List(3))))
+    }
+  }
 }

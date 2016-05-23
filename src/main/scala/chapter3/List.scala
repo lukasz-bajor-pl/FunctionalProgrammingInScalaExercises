@@ -126,4 +126,12 @@ object List {
     case Cons(x, xs) => new Cons(x, append(xs, e))
   }
 
+  //3.15
+  def concatenate[A](l: List[List[A]]): List[A] = {
+    foldRightAsFL(l, Nil: List[A])(
+      (innerList, acc) => foldRightAsFL(innerList, acc)(
+        (el, acc) => new Cons(el, acc)
+      )
+    )
+  }
 }

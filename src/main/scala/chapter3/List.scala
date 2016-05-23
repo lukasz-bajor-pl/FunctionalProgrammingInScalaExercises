@@ -134,4 +134,12 @@ object List {
       )
     )
   }
+
+  //3.16
+  def increase(l: List[Int], inc: Int): List[Int] = {
+    l match {
+      case Nil => l
+      case Cons(x, xs) => Cons(x+inc, increase(xs, inc))
+    }
+  }
 }

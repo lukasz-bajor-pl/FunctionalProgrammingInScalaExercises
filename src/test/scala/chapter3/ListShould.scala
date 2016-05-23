@@ -189,4 +189,14 @@ class ListShould extends FreeSpec {
       assert(List(1,2,3) === List.concatenate(List(List(1,2), List(3))))
     }
   }
+
+  "3.16 increase should" - {
+    "return Nil for Nil" in {
+      assert(Nil === List.increase(Nil, 1))
+    }
+
+    "return List(3,4,5) for List(1,2,3) and 2" in {
+      assert(List(3,4,5) === List.increase(List(1,2,3), 2))
+    }
+  }
 }

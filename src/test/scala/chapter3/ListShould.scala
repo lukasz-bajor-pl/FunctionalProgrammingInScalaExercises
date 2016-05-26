@@ -55,7 +55,7 @@ class ListShould extends FreeSpec {
     }
 
     "drop first element on List(1,2) and predicate e <= 1" in {
-      assert(List(2) === List.dropWhile(List(1,2), (e:Int) => e <= 1 ))
+      assert(List(2) === List.dropWhile(List(1, 2), (e: Int) => e <= 1))
     }
   }
 
@@ -132,7 +132,7 @@ class ListShould extends FreeSpec {
     }
 
     "sumFL return 6 for List(1,2,3)" in {
-      assert(6 === List.sumFL(List(1,2,3)))
+      assert(6 === List.sumFL(List(1, 2, 3)))
     }
 
     "productFL return 1.0 for Nil" in {
@@ -140,7 +140,7 @@ class ListShould extends FreeSpec {
     }
 
     "productFL return 24 for List(1,2,3,4)" in {
-      assert(24 === List.productFL(List(1.0,2.0,3.0,4.0)))
+      assert(24 === List.productFL(List(1.0, 2.0, 3.0, 4.0)))
     }
   }
 
@@ -150,23 +150,23 @@ class ListShould extends FreeSpec {
     }
 
     "return List(3,2,1) for List(1,2,3)" in {
-      assert(List(3,2,1) === List.reverseFL(List(1,2,3)))
+      assert(List(3, 2, 1) === List.reverseFL(List(1, 2, 3)))
     }
   }
 
   "3.13 foldLeftAsFR should" - {
     "reverse list" in {
-      assert(List(3,2,1) === List.foldLeftAsFR(List(1,2,3), Nil: List[Int])((z, el) => new Cons(el, z)))
+      assert(List(3, 2, 1) === List.foldLeftAsFR(List(1, 2, 3), Nil: List[Int])((z, el) => new Cons(el, z)))
     }
   }
 
   "3.13 foldRightAsFL should" - {
     "not reverse list" in {
-      assert(List(1,2,3) === List.foldRightAsFL(List(1,2,3), Nil: List[Int])((el, z) => new Cons(el, z)))
+      assert(List(1, 2, 3) === List.foldRightAsFL(List(1, 2, 3), Nil: List[Int])((el, z) => new Cons(el, z)))
     }
 
     "foldRightAsFL is tail recursive" in {
-      List.foldRightAsFL(List((1 to 100000): _*), 0)((el, z) => z+1)
+      List.foldRightAsFL(List((1 to 100000): _*), 0)((el, z) => z + 1)
     }
   }
 
@@ -176,7 +176,7 @@ class ListShould extends FreeSpec {
     }
 
     "return List(1, 2) after appending 2 to List(1)" in {
-      assert(List(1,2) === List.append(List(1), 2))
+      assert(List(1, 2) === List.append(List(1), 2))
     }
   }
 
@@ -186,7 +186,7 @@ class ListShould extends FreeSpec {
     }
 
     "return List(1,2,3) for List(List(1,2),List(3))" in {
-      assert(List(1,2,3) === List.concatenate(List(List(1,2), List(3))))
+      assert(List(1, 2, 3) === List.concatenate(List(List(1, 2), List(3))))
     }
   }
 
@@ -196,7 +196,7 @@ class ListShould extends FreeSpec {
     }
 
     "return List(3,4,5) for List(1,2,3) and 2" in {
-      assert(List(3,4,5) === List.increase(List(1,2,3), 2))
+      assert(List(3, 4, 5) === List.increase(List(1, 2, 3), 2))
     }
   }
 
@@ -206,7 +206,7 @@ class ListShould extends FreeSpec {
     }
 
     "return List(\"1.0\",\"2.0\") for List(1.0,2.0)" in {
-      assert(List("1.0", "2.0") === List.doubleToString(List(1.0,2.0)))
+      assert(List("1.0", "2.0") === List.doubleToString(List(1.0, 2.0)))
     }
   }
 
@@ -216,7 +216,7 @@ class ListShould extends FreeSpec {
     }
 
     "preserve order and tranform arguments" in {
-      assert(List("1","2","3") === List.map(List(1,2,3))(_.toString))
+      assert(List("1", "2", "3") === List.map(List(1, 2, 3))(_.toString))
     }
   }
 
@@ -226,7 +226,7 @@ class ListShould extends FreeSpec {
     }
 
     "preserve order and leave only elements passing filter" in {
-      assert(List(1,3) === List.filter(List(1,2,3))(_%2==1))
+      assert(List(1, 3) === List.filter(List(1, 2, 3))(_ % 2 == 1))
     }
   }
 
@@ -236,11 +236,11 @@ class ListShould extends FreeSpec {
     }
 
     "convertt to list of ints to list of strings" in {
-      assert(List("1","2","3") === List.flatMap(List(1,2,3))(i => List(i.toString)))
+      assert(List("1", "2", "3") === List.flatMap(List(1, 2, 3))(i => List(i.toString)))
     }
 
     "convertt to list of lists of ints to list of strings" in {
-      assert(List("1","2","3") === List.flatMap(List(List(1,2),List(3)))(i => List.map(i)(_.toString)))
+      assert(List("1", "2", "3") === List.flatMap(List(List(1, 2), List(3)))(i => List.map(i)(_.toString)))
     }
   }
 
@@ -250,14 +250,14 @@ class ListShould extends FreeSpec {
     }
 
     "preserve order and leave only elements passing filter" in {
-      assert(List(1,3) === List.filterAsFM(List(1,2,3))(_%2==1))
+      assert(List(1, 3) === List.filterAsFM(List(1, 2, 3))(_ % 2 == 1))
     }
   }
 
   "3.22 sumLists should" - {
     "add corresponding elements" in {
       val result = List.sumLists(List(1, 2, 3), List(2, 3, 4))
-      assert(List(3,5,7) === result)
+      assert(List(3, 5, 7) === result)
     }
 
     "handle Nil, Nil case" in {
@@ -267,56 +267,56 @@ class ListShould extends FreeSpec {
 
     "handle Nil in l1" in {
       val result = List.sumLists(Nil, List(2, 3, 4))
-      assert(List(2,3,4) === result)
+      assert(List(2, 3, 4) === result)
     }
 
     "handle Nil in l2" in {
       val result = List.sumLists(List(2, 3, 4), Nil)
-      assert(List(2,3,4) === result)
+      assert(List(2, 3, 4) === result)
     }
   }
 
   "3.23 zipWith should" - {
     "add corresponding elements" in {
-      val result = List.zipWith(List(1, 2, 3), List(2, 3, 4), Some(0), Some(0))(_+_)
-      assert(List(3,5,7) === result)
+      val result = List.zipWith(List(1, 2, 3), List(2, 3, 4), Some(0), Some(0))(_ + _)
+      assert(List(3, 5, 7) === result)
     }
 
     "handle Nil, Nil case" in {
-      val result = List.zipWith(Nil:List[Int], Nil:List[Int], Some(0), Some(0))(_+_)
+      val result = List.zipWith(Nil: List[Int], Nil: List[Int], Some(0), Some(0))(_ + _)
       assert(Nil === result)
     }
 
     "handle Nil in l1" in {
-      val result = List.zipWith(Nil:List[Int], List(2, 3, 4), Some(0), Some(0))(_+_)
-      assert(List(2,3,4) === result)
+      val result = List.zipWith(Nil: List[Int], List(2, 3, 4), Some(0), Some(0))(_ + _)
+      assert(List(2, 3, 4) === result)
     }
 
     "handle Nil in l2" in {
-      val result = List.zipWith(List(2, 3, 4), Nil:List[Int], Some(0), Some(0))(_+_)
-      assert(List(2,3,4) === result)
+      val result = List.zipWith(List(2, 3, 4), Nil: List[Int], Some(0), Some(0))(_ + _)
+      assert(List(2, 3, 4) === result)
     }
   }
 
   "3.24 hasSubsequence should" - {
     "find simple pattern - one element" in {
-      assert(true === List.hasSubsequence(List(1,2,3), List(1)))
+      assert(true === List.hasSubsequence(List(1, 2, 3), List(1)))
     }
 
     "find simple pattern - two elements" in {
-      assert(true === List.hasSubsequence(List(1,2,3), List(1,2)))
+      assert(true === List.hasSubsequence(List(1, 2, 3), List(1, 2)))
     }
 
     "find complex pattern" in {
-      assert(true === List.hasSubsequence(List(1,2,1,2,1,2,3), List(1,2,1,2,3)))
+      assert(true === List.hasSubsequence(List(1, 2, 1, 2, 1, 2, 3), List(1, 2, 1, 2, 3)))
     }
 
     "return false for Nil list" in {
-      assert(false === List.hasSubsequence(Nil, List(1,2,1,2,3)))
+      assert(false === List.hasSubsequence(Nil, List(1, 2, 1, 2, 3)))
     }
 
     "return true for Nil pattern" in {
-      assert(true === List.hasSubsequence(List(1,2,1,2,3), Nil))
+      assert(true === List.hasSubsequence(List(1, 2, 1, 2, 3), Nil))
     }
   }
 }

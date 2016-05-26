@@ -229,4 +229,18 @@ class ListShould extends FreeSpec {
       assert(List(1,3) === List.filter(List(1,2,3))(_%2==1))
     }
   }
+
+  "3.20 flatMap should" - {
+    "leave nil regardles of transformation" in {
+      assert(Nil === List.flatMap(Nil: List[Int])(i => List(i.toString)))
+    }
+
+    "convertt to list of ints to list of strings" in {
+      assert(List("1","2","3") === List.flatMap(List(1,2,3))(i => List(i.toString)))
+    }
+
+    "convertt to list of lists of ints to list of strings" in {
+      assert(List("1","2","3") === List.flatMap(List(List(1,2),List(3)))(i => List.map(i)(_.toString)))
+    }
+  }
 }

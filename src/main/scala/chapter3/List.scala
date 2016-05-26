@@ -158,4 +158,8 @@ object List {
     if (f(el)) new Cons(el, z)
     else z
   )
+
+  //3.20
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
+    concatenate(foldRight(as, Nil:List[List[B]])((e, z) => new Cons(f(e), z)))
 }

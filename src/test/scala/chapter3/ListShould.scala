@@ -214,5 +214,9 @@ class ListShould extends FreeSpec {
     "leave nil regardles of transformation" in {
       assert(Nil === List.map(Nil: List[Int])(_.toString))
     }
+
+    "preserve order and tranform arguments" in {
+      assert(List("1","2","3") === List.map(List(1,2,3))(_.toString))
+    }
   }
 }

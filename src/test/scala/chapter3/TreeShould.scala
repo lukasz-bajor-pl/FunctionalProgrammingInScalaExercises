@@ -36,4 +36,14 @@ class TreeShould extends FreeSpec {
       assert(4 === Tree.depth(Branch(Leaf(1), Branch(Leaf(2),Branch(Leaf(3), Leaf(4))))))
     }
   }
+
+  "map" - {
+    "return Leaf(\"1\") for Leaf(1)" in {
+      assert(Leaf("1") === Tree.map(Leaf(1))(_.toString))
+    }
+
+    "return branch of string leaves for branch of ints" in {
+      assert(Branch(Leaf("1"), Branch(Leaf("2"), Leaf("3"))) === Tree.map(Branch(Leaf(1), Branch(Leaf(2), Leaf(3))))(_.toString))
+    }
+  }
 }

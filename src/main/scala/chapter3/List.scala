@@ -92,33 +92,34 @@ object List {
   def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = {
     @annotation.tailrec
     def go(as: List[A], t: B): B = as match {
-        case Nil => t
-        case Cons(x, xs) => go(xs, f(t, x))
-      }
+      case Nil => t
+      case Cons(x, xs) => go(xs, f(t, x))
+    }
 
     go(as, z)
   }
 
   //3.7 with short circuiting
-  def lazyFoldRight[A, B](a: List[A], z: B)(f: (A, =>B) => B): B = a match {
+  def lazyFoldRight[A, B](a: List[A], z: B)(f: (A, => B) => B): B = a match {
     case Nil => z
     case Cons(x, xs) => f(x, lazyFoldRight(xs, z)(f))
   }
 
   //3.11
-  def sumFL(l: List[Int]) = foldLeft(l, 0)(_+_)
+  def sumFL(l: List[Int]) = foldLeft(l, 0)(_ + _)
 
-  def productFL(l: List[Double]) = foldLeft(l, 1.0)(_*_)
+  def productFL(l: List[Double]) = foldLeft(l, 1.0)(_ * _)
 
   def lengthFL[A](l: List[A]) =
-    foldLeft(l, 0)((len, l) => len+1)
+    foldLeft(l, 0)((len, l) => len + 1)
 
   //3.12
-  def reverseFL[A](l: List[A]) = foldLeft(l, Nil:List[A])((z, el) => new Cons(el, z))
+  def reverseFL[A](l: List[A]) = foldLeft(l, Nil: List[A])((z, el) => new Cons(el, z))
 
   //3.13
-  def foldLeftAsFR[A, B](as: List[A], z: B)(f: (B, A) => B): B = foldRight[A, B](reverseFL(as), z)((a, b) => f(b,a))
-  def foldRightAsFL[A, B](as: List[A], z: B)(f: (A, B) => B): B = foldLeft[A, B](reverseFL(as), z)((a, b) => f(b,a))
+  def foldLeftAsFR[A, B](as: List[A], z: B)(f: (B, A) => B): B = foldRight[A, B](reverseFL(as), z)((a, b) => f(b, a))
+
+  def foldRightAsFL[A, B](as: List[A], z: B)(f: (A, B) => B): B = foldLeft[A, B](reverseFL(as), z)((a, b) => f(b, a))
 
   //3.14
   def append[A](l: List[A], e: A): List[A] = l match {
@@ -139,7 +140,7 @@ object List {
   def increase(l: List[Int], inc: Int): List[Int] = {
     l match {
       case Nil => l
-      case Cons(x, xs) => Cons(x+inc, increase(xs, inc))
+      case Cons(x, xs) => Cons(x + inc, increase(xs, inc))
     }
   }
 
@@ -150,24 +151,25 @@ object List {
       case Cons(x, xs) => Cons(x.toString, doubleToString(xs))
     }
   }
+
   //3.18
-  def map[A,B](as: List[A])(f: A => B): List[B] = foldRight(as, Nil:List[B])((el, z) => new Cons(f(el), z))
+  def map[A, B](as: List[A])(f: A => B): List[B] = foldRight(as, Nil: List[B])((el, z) => new Cons(f(el), z))
 
   //3.19
-  def filter[A](as: List[A])(f: A => Boolean): List[A] = foldRight(as, Nil:List[A])((el, z) =>
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = foldRight(as, Nil: List[A])((el, z) =>
     if (f(el)) new Cons(el, z)
     else z
   )
 
   //3.20
-  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
-    concatenate(foldRight(as, Nil:List[List[B]])((e, z) => new Cons(f(e), z)))
+  def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] =
+    concatenate(foldRight(as, Nil: List[List[B]])((e, z) => new Cons(f(e), z)))
 
   //3.21
   def filterAsFM[A](as: List[A])(f: A => Boolean): List[A] =
     flatMap(as)(e =>
-      if (f(e)) new Cons(e, Nil:List[A])
-      else Nil:List[A]
+      if (f(e)) new Cons(e, Nil: List[A])
+      else Nil: List[A]
     )
 
   //3.22
@@ -177,12 +179,12 @@ object List {
       l1 match {
         case Nil => l2 match {
           case Nil => acc
-          case Cons(x,xs) => go(new Cons(x, acc), l1, xs)
+          case Cons(x, xs) => go(new Cons(x, acc), l1, xs)
         }
 
         case Cons(x, xs) => l2 match {
           case Nil => go(new Cons(x, acc), xs, l2)
-          case Cons(y, ys) => go(new Cons(x+y, acc), xs, ys)
+          case Cons(y, ys) => go(new Cons(x + y, acc), xs, ys)
         }
       }
     }
@@ -194,33 +196,33 @@ object List {
   }
 
   //3.23
-  def zipWith[A,B,C](l1: List[A], l2: List[B], zA: Option[A], zB: Option[B])(f: (A, B) => C): List[C] = {
+  def zipWith[A, B, C](l1: List[A], l2: List[B], zA: Option[A], zB: Option[B])(f: (A, B) => C): List[C] = {
     @annotation.tailrec
     def go(acc: List[C], l1: List[A], l2: List[B]): List[C] = {
       l1 match {
         case Nil => l2 match {
           case Nil => acc
-          case Cons(x,xs) =>
-            if (zA.isDefined) go(new Cons(f(zA.get,x), acc), l1, xs)
+          case Cons(x, xs) =>
+            if (zA.isDefined) go(new Cons(f(zA.get, x), acc), l1, xs)
             else acc
         }
 
         case Cons(x, xs) => l2 match {
           case Nil =>
-            if (zB.isDefined) go(new Cons(f(x,zB.get), acc), xs, l2)
+            if (zB.isDefined) go(new Cons(f(x, zB.get), acc), xs, l2)
             else acc
-          case Cons(y, ys) => go(new Cons(f(x,y), acc), xs, ys)
+          case Cons(y, ys) => go(new Cons(f(x, y), acc), xs, ys)
         }
       }
     }
 
-    val notReversed = go(Nil:List[C], l1, l2)
+    val notReversed = go(Nil: List[C], l1, l2)
     val reversed = reverseFL(notReversed)
 
     reversed
   }
 
-  def zipWithAlternative[A,B,C](l1: List[A], l2: List[B])(f: (A, B) => C): List[C] = {
+  def zipWithAlternative[A, B, C](l1: List[A], l2: List[B])(f: (A, B) => C): List[C] = {
     @annotation.tailrec
     def go(acc: List[C], l1: List[A], l2: List[B]): List[C] = {
       l1 match {
@@ -233,24 +235,18 @@ object List {
       }
     }
 
-    val notReversed = go(Nil:List[C], l1, l2)
+    val notReversed = go(Nil: List[C], l1, l2)
     val reversed = reverseFL(notReversed)
 
     reversed
   }
 
   //3.24
-  def hasSubsequence[A](l: List[A], sub: List[A]): Boolean = {
-    def go(): Boolean = {
-      val guess = zipWithAlternative(l, sub)((_, _))
-      val matching = filter(guess)(e => e._1 == e._2)
-
-      lengthFL(matching) == lengthFL(sub)
-    }
-
-    l match {
-      case Nil => go
-      case Cons(x, xs) => go || hasSubsequence(xs, sub)
+  def hasSubsequence[A](l: List[A], sub: List[A]): Boolean = l match {
+    case Nil => (sub == Nil)
+    case Cons(x, xs) => sub match {
+      case Nil => true
+      case Cons(y, ys) => ((x == y) && hasSubsequence(xs, ys)) || hasSubsequence(xs, sub)
     }
   }
 }

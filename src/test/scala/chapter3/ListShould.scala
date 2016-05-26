@@ -219,4 +219,14 @@ class ListShould extends FreeSpec {
       assert(List("1","2","3") === List.map(List(1,2,3))(_.toString))
     }
   }
+
+  "3.19 filter should" - {
+    "leave nil regardles of predicate" in {
+      assert(Nil === List.filter(Nil: List[Int])(_ % 2 == 1))
+    }
+
+    "preserve order and leave only elements passing filter" in {
+      assert(List(1,3) === List.filter(List(1,2,3))(_%2==1))
+    }
+  }
 }

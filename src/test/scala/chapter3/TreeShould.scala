@@ -26,4 +26,14 @@ class TreeShould extends FreeSpec {
       assert(3 === Tree.maximum(Branch(Leaf(1), Branch(Leaf(2),Leaf(3)))))
     }
   }
+
+  "depth" - {
+    "return 1 for leaf" in {
+      assert(1 === Tree.depth(Leaf(1)))
+    }
+
+    "return deepest branch depth + 1" in {
+      assert(4 === Tree.depth(Branch(Leaf(1), Branch(Leaf(2),Branch(Leaf(3), Leaf(4))))))
+    }
+  }
 }

@@ -209,4 +209,10 @@ class ListShould extends FreeSpec {
       assert(List("1.0", "2.0") === List.doubleToString(List(1.0,2.0)))
     }
   }
+
+  "3.18 map should" - {
+    "leave nil regardles of transformation" in {
+      assert(Nil === List.map(Nil: List[Int])(_.toString))
+    }
+  }
 }

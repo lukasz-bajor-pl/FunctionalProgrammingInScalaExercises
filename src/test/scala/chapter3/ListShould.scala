@@ -275,4 +275,26 @@ class ListShould extends FreeSpec {
       assert(List(2,3,4) === result)
     }
   }
+
+  "3.23 zipWith should" - {
+    "add corresponding elements" in {
+      val result = List.zipWith(List(1, 2, 3), List(2, 3, 4), Some(0), Some(0))(_+_)
+      assert(List(3,5,7) === result)
+    }
+
+    "handle Nil, Nil case" in {
+      val result = List.zipWith(Nil:List[Int], Nil:List[Int], Some(0), Some(0))(_+_)
+      assert(Nil === result)
+    }
+
+    "handle Nil in l1" in {
+      val result = List.zipWith(Nil:List[Int], List(2, 3, 4), Some(0), Some(0))(_+_)
+      assert(List(2,3,4) === result)
+    }
+
+    "handle Nil in l2" in {
+      val result = List.zipWith(List(2, 3, 4), Nil:List[Int], Some(0), Some(0))(_+_)
+      assert(List(2,3,4) === result)
+    }
+  }
 }

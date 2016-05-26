@@ -192,4 +192,50 @@ object List {
 
     reversed
   }
+
+  //3.23
+  def zipWith[A,B,C](l1: List[A], l2: List[B], zA: Option[A], zB: Option[B])(f: (A, B) => C): List[C] = {
+    @annotation.tailrec
+    def go(acc: List[C], l1: List[A], l2: List[B]): List[C] = {
+      l1 match {
+        case Nil => l2 match {
+          case Nil => acc
+          case Cons(x,xs) =>
+            if (zA.isDefined) go(new Cons(f(zA.get,x), acc), l1, xs)
+            else acc
+        }
+
+        case Cons(x, xs) => l2 match {
+          case Nil =>
+            if (zB.isDefined) go(new Cons(f(x,zB.get), acc), xs, l2)
+            else acc
+          case Cons(y, ys) => go(new Cons(f(x,y), acc), xs, ys)
+        }
+      }
+    }
+
+    val notReversed = go(Nil:List[C], l1, l2)
+    val reversed = reverseFL(notReversed)
+
+    reversed
+  }
+
+  def zipWithAlternative[A,B,C](l1: List[A], l2: List[B])(f: (A, B) => C): List[C] = {
+    @annotation.tailrec
+    def go(acc: List[C], l1: List[A], l2: List[B]): List[C] = {
+      l1 match {
+        case Nil => acc
+        case Cons(x, xs) =>
+          l2 match {
+            case Nil => acc
+            case Cons(y, ys) => go(new Cons(f(x, y), acc), xs, ys)
+          }
+      }
+    }
+
+    val notReversed = go(Nil:List[C], l1, l2)
+    val reversed = reverseFL(notReversed)
+
+    reversed
+  }
 }

@@ -68,4 +68,26 @@ class TreeShould extends FreeSpec {
       assert(Branch(Leaf("1"), Branch(Leaf("2"), Leaf("3"))) === Tree.mapF(Branch(Leaf(1), Branch(Leaf(2), Leaf(3))))(_.toString))
     }
   }
+
+  "foldAlt" - {
+    "sizeFA should give same results as size" in {
+      assert(1 === Tree.sizeFA(Leaf(1)))
+      assert(5 === Tree.sizeFA(Branch(Leaf(1), Branch(Leaf(2),Leaf(3)))))
+    }
+
+    "maximumFA should give same results as maximum" in {
+      assert(1 === Tree.maximumFA(Leaf(1)))
+      assert(3 === Tree.maximumFA(Branch(Leaf(1), Branch(Leaf(2),Leaf(3)))))
+    }
+
+    "depthFA should give same results as depth" in {
+      assert(1 === Tree.depthFA(Leaf(1)))
+      assert(4 === Tree.depthFA(Branch(Leaf(1), Branch(Leaf(2),Branch(Leaf(3), Leaf(4))))))
+    }
+
+    "mapFA should give same results as map" in {
+      assert(Leaf("1") === Tree.mapFA(Leaf(1))(_.toString))
+      assert(Branch(Leaf("1"), Branch(Leaf("2"), Leaf("3"))) === Tree.mapFA(Branch(Leaf(1), Branch(Leaf(2), Leaf(3))))(_.toString))
+    }
+  }
 }

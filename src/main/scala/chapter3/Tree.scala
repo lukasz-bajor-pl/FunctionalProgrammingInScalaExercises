@@ -57,4 +57,15 @@ object Tree {
       case _ => Branch(resA.get, resB.get)
     }
   })
+
+  def foldAlt[A, B](t: Tree[A])(leafFunc: A => B)(branchFunc: (B, B)=>B): B = t match {
+    case Leaf(v) => leafFunc(v)
+    case Branch(l, r) => branchFunc(foldAlt(l)(leafFunc)(branchFunc), foldAlt(r)(leafFunc)(branchFunc))
+  }
+
+  def sizeFA[A](t: Tree[A]): Int = foldAlt(t)(leaf => 1)((l, r) => l + r + 1)
+  def maximumFA(t: Tree[Int]): Int = foldAlt(t)(leaf=>leaf)((l,r) => l.max(r))
+  def depthFA[A](t: Tree[A]): Int = foldAlt(t)(leaf=>1)((l, r) => 1 + l.max(r))
+  def mapFA[A, B](t: Tree[A])(f: A=>B): Tree[B] =
+    foldAlt(t)(leaf=>Leaf(f(leaf)).asInstanceOf[Tree[B]])((l, r) => Branch(l, r))
 }

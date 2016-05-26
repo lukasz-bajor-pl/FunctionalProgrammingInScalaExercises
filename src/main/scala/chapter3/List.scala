@@ -238,4 +238,19 @@ object List {
 
     reversed
   }
+
+  //3.24
+  def hasSubsequence[A](l: List[A], sub: List[A]): Boolean = {
+    def go(): Boolean = {
+      val guess = zipWithAlternative(l, sub)((_, _))
+      val matching = filter(guess)(e => e._1 == e._2)
+
+      lengthFL(matching) == lengthFL(sub)
+    }
+
+    l match {
+      case Nil => go
+      case Cons(x, xs) => go || hasSubsequence(xs, sub)
+    }
+  }
 }

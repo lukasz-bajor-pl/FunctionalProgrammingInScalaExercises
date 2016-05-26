@@ -297,4 +297,26 @@ class ListShould extends FreeSpec {
       assert(List(2,3,4) === result)
     }
   }
+
+  "3.24 hasSubsequence should" - {
+    "find simple pattern - one element" in {
+      assert(true === List.hasSubsequence(List(1,2,3), List(1)))
+    }
+
+    "find simple pattern - two elements" in {
+      assert(true === List.hasSubsequence(List(1,2,3), List(1,2)))
+    }
+
+    "find complex pattern" in {
+      assert(true === List.hasSubsequence(List(1,2,1,2,1,2,3), List(1,2,1,2,3)))
+    }
+
+    "return false for Nil list" in {
+      assert(false === List.hasSubsequence(Nil, List(1,2,1,2,3)))
+    }
+
+    "return true for Nil pattern" in {
+      assert(true === List.hasSubsequence(List(1,2,1,2,3), Nil))
+    }
+  }
 }

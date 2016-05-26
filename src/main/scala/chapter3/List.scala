@@ -162,4 +162,11 @@ object List {
   //3.20
   def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
     concatenate(foldRight(as, Nil:List[List[B]])((e, z) => new Cons(f(e), z)))
+
+  //3.21
+  def filterAsFM[A](as: List[A])(f: A => Boolean): List[A] =
+    flatMap(as)(e =>
+      if (f(e)) new Cons(e, Nil:List[A])
+      else Nil:List[A]
+    )
 }

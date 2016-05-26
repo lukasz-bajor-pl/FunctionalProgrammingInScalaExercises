@@ -151,5 +151,5 @@ object List {
     }
   }
   //3.18
-  def map[A,B](as: List[A])(f: A => B): List[B] = ???
+  def map[A,B](as: List[A])(f: A => B): List[B] = foldRight(as, Nil:List[B])((el, z) => new Cons(f(el), z))
 }

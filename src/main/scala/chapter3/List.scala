@@ -169,4 +169,27 @@ object List {
       if (f(e)) new Cons(e, Nil:List[A])
       else Nil:List[A]
     )
+
+  //3.22
+  def sumLists(l1: List[Int], l2: List[Int]): List[Int] = {
+    @annotation.tailrec
+    def go(acc: List[Int], l1: List[Int], l2: List[Int]): List[Int] = {
+      l1 match {
+        case Nil => l2 match {
+          case Nil => acc
+          case Cons(x,xs) => go(new Cons(x, acc), l1, xs)
+        }
+
+        case Cons(x, xs) => l2 match {
+          case Nil => go(new Cons(x, acc), xs, l2)
+          case Cons(y, ys) => go(new Cons(x+y, acc), xs, ys)
+        }
+      }
+    }
+
+    val notReversed = go(Nil: List[Int], l1, l2)
+    val reversed = reverseFL(notReversed)
+
+    reversed
+  }
 }

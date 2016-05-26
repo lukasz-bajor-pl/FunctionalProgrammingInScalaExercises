@@ -253,4 +253,26 @@ class ListShould extends FreeSpec {
       assert(List(1,3) === List.filterAsFM(List(1,2,3))(_%2==1))
     }
   }
+
+  "3.22 sumLists should" - {
+    "add corresponding elements" in {
+      val result = List.sumLists(List(1, 2, 3), List(2, 3, 4))
+      assert(List(3,5,7) === result)
+    }
+
+    "handle Nil, Nil case" in {
+      val result = List.sumLists(Nil, Nil)
+      assert(Nil === result)
+    }
+
+    "handle Nil in l1" in {
+      val result = List.sumLists(Nil, List(2, 3, 4))
+      assert(List(2,3,4) === result)
+    }
+
+    "handle Nil in l2" in {
+      val result = List.sumLists(List(2, 3, 4), Nil)
+      assert(List(2,3,4) === result)
+    }
+  }
 }

@@ -41,9 +41,65 @@ sealed trait Stream[+A] {
 
   def flatMap[B](f: A => Stream[B]): Stream[B] = foldRight(Empty:Stream[B])(
     (h, t) => f(h).foldRight(t)(
-        (h1, t1) => Stream.cons(h1, t1)
-      )
+      (h1, t1) => Stream.cons(h1, t1)
+    )
   )
+
+  def mapUnfold[B](f: A=> B) = Stream.unfold(this)(a => a match {
+    case Empty => None
+    case Cons(h,t) =>
+      Some((f(h()), t()))
+  })
+
+  def takeUnfold(n: Int): Stream[A] =
+    Stream.unfold((n, this))({
+      case (n, s) =>
+        if (n <= 0) None
+        else s match {
+          case Empty => None
+          case Cons(h, t) => Some(h(), (n-1, t()))
+        }
+    })
+
+  def takeWhileUnfold(p: A => Boolean): Stream[A] =
+    Stream.unfold(this)(_ match {
+      case Empty => None
+      case Cons(h, t) =>
+        val hEv = h()
+        if (!p(hEv)) None
+        else Some((hEv, t()))
+    })
+
+  def zipWith[B,C](s2: Stream[B])(f: (A, B) => C): Stream[C] =
+    Stream.unfold((this, s2))(_ match {
+      case (Empty, _) => None
+      case (_, Empty) => None
+      case (Cons(h1, t1), Cons(h2, t2)) =>
+        Some(f(h1(), h2()), (t1(), t2()))
+    })
+
+  def zipAll[B](s2: Stream[B]): Stream[(Option[A],Option[B])] =
+    Stream.unfold((this, s2))(_ match {
+      case (Empty, Empty) => None
+      case (Empty, Cons(h, t)) => Some((None, Some(h())), (Empty, t()))
+      case (Cons(h, t), Empty) => Some((Some(h()), None), (t(), Empty))
+      case (Cons(h1, t1), Cons(h2, t2)) => Some((Some(h1()), Some(h2())), (t1(), t2()))
+    })
+
+  def startsWith[B >: A](s: Stream[B]): Boolean = zipAll(s).forAll({case (a, b) => b == None || a == b })
+
+  def tails: Stream[Stream[A]] = Stream.unfold(Some(this):Option[Stream[A]])(_ match {
+    case None => None
+    case Some(Empty) => Some(Empty:Stream[A], None)
+    case Some(c@Cons(h, t)) => Some(c, Some(t()))
+  })
+
+  def exists(p: A => Boolean): Boolean = this match {
+    case Cons(h, t) => p(h()) || t().exists(p)
+    case _ => false
+  }
+
+  def hasSubsequence[B >: A](s2: Stream[B]): Boolean = tails exists(_ startsWith s2)
 }
 
 case object Empty extends Stream[Nothing] {
@@ -90,4 +146,21 @@ object Stream {
   def apply[A](as: A*): Stream[A] =
     if (as.isEmpty) empty
     else cons(as.head, apply(as.tail: _*))
+
+  def constant[A](a: A): Stream[A] = cons(a, constant(a))
+
+  def from(n: Int): Stream[Int] = cons(n, from(n+1))
+
+  def fibs: Stream[Int] = {
+    def fibsFrom(a: Int, b: Int): Stream[Int] = cons(a, fibsFrom(b, a+b))
+
+    fibsFrom(0, 1)
+  }
+
+  def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] =
+    f(z).map(e => cons(e._1, unfold(e._2)(f))).getOrElse(Empty:Stream[A])
+
+  def fibsUnfold: Stream[Int] = unfold((0,1))({ case (a,b) => Some((a, (b, a+b))) })
+  def fromUnfold(n: Int): Stream[Int] = unfold(n)(n => Some((n, n+1)) )
+  def constantUnfold[A](a: A): Stream[A] = unfold(a)(a => Some((a, a)) )
 }

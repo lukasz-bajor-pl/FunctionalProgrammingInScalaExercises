@@ -29,6 +29,10 @@ trait Parsers[ParseError, Parser[+_]] { self =>
     def flatMap[B](f: A => Parser[B]): Parser[B] = self.flatMap(p)(f)
 
     def exactly(n: Int) = self.exactly(p, n)
+
+    def slice = self.slice(p)
+
+    def product[B](p2: Parser[B]): Parser[(A,B)] = self.product(p, p2)
   }
 
   def slice[A](p: Parser[A]): Parser[String]
@@ -85,4 +89,17 @@ trait Parsers[ParseError, Parser[+_]] { self =>
 
   //9.8
   def map[A,B](a: Parser[A])(f: A => B): Parser[B] = flatMap(a)(a => succeed(f(a)))
+
+  //9.9
+  def digit = regex("\\d".r).map(_.toInt)
+}
+
+trait JSON
+object JSON {
+  case object JNull extends JSON
+  case class JNumber(get: Double) extends JSON
+  case class JString(get: String) extends JSON
+  case class JBool(get: Boolean) extends JSON
+  case class JArray(get: IndexedSeq[JSON]) extends JSON
+  case class JObject(get: Map[String, JSON]) extends JSON
 }

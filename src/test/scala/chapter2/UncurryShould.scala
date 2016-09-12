@@ -1,6 +1,6 @@
 package chapter2
 
-import chapter2.exercise4.Uncurry
+import pers.fpinscala.chapter2.exercise4.Uncurry
 import org.scalatest.FreeSpec
 
 /**

@@ -1,6 +1,6 @@
-package chapter2
+package pers.fpinscala.chapter2
 
-import chapter2.exercise5.Compose
+import pers.fpinscala.chapter2.exercise5.Compose
 import org.scalatest.FreeSpec
 
 /**

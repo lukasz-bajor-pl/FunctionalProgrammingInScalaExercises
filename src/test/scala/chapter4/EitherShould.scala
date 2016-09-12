@@ -1,4 +1,4 @@
-package chapter4
+package pers.fpinscala.chapter4
 
 import org.scalatest.FreeSpec
 

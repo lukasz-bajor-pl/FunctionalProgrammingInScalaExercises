@@ -1,6 +1,6 @@
-package chapter2
+package pers.fpinscala.chapter2
 
-import chapter2.exercise2.IsSorted
+import pers.fpinscala.chapter2.exercise2.IsSorted
 import org.scalatest.FreeSpec
 import org.scalatest.concurrent.TimeLimitedTests
 import org.scalatest.time.{Millis, Span}

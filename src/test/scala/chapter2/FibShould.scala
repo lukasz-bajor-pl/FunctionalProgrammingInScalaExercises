@@ -1,6 +1,6 @@
 package chapter2
 
-import chapter2.exercise1.Fib
+import pers.fpinscala.chapter2.exercise1.Fib
 import org.scalatest.FreeSpec
 import org.scalatest.concurrent.TimeLimitedTests
 import org.scalatest.time.{Seconds, Span}

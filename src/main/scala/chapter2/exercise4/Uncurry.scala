@@ -1,4 +1,4 @@
-package chapter2.exercise4
+package pers.fpinscala.chapter2.exercise4
 
 /**
   * Created by lbajor on 2016-05-08.

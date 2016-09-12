@@ -1,6 +1,6 @@
-package chapter2
+package pers.fpinscala.chapter2
 
-import chapter2.exercise3.Curry
+import pers.fpinscala.chapter2.exercise3.Curry
 import org.scalatest.FreeSpec
 
 /**

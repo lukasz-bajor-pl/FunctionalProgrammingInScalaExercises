@@ -1,4 +1,4 @@
-package chapter4
+package pers.fpinscala.chapter4
 
 /**
   * Created by bajorl on 02/06/2016.

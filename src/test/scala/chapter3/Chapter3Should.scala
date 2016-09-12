@@ -1,4 +1,4 @@
-package chapter3
+package pers.fpinscala.chapter3
 
 import org.scalatest.{FreeSpec, FunSuite}
 

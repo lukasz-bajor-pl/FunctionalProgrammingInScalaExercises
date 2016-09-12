@@ -1,4 +1,4 @@
-package chapter5
+package pers.fpinscala.chapter5
 
 /**
   * Created by bajorl on 08/06/2016.
@@ -100,6 +100,8 @@ sealed trait Stream[+A] {
   }
 
   def hasSubsequence[B >: A](s2: Stream[B]): Boolean = tails exists(_ startsWith s2)
+
+  def find(p: A => Boolean): Option[A]
 }
 
 case object Empty extends Stream[Nothing] {
@@ -107,6 +109,7 @@ case object Empty extends Stream[Nothing] {
   override def take(n: Int) = this
   override def drop(n: Int) = this
   override def takeWhile(p: Nothing => Boolean) = this
+  override def find(p: Nothing => Boolean) = None:Option[Nothing]
 }
 
 case class Cons[+A](h: ()=>A, t: ()=>Stream[A]) extends Stream[A] {
@@ -130,6 +133,13 @@ case class Cons[+A](h: ()=>A, t: ()=>Stream[A]) extends Stream[A] {
     else {
       Stream.cons(hEvaluated, t().takeWhile(p))
     }
+  }
+
+  override def find(p: A => Boolean) : Option[A] = {
+    lazy val hEval = h()
+
+    if (p(hEval)) Some(hEval)
+    else t().find(p)
   }
 }
 
@@ -163,4 +173,5 @@ object Stream {
   def fibsUnfold: Stream[Int] = unfold((0,1))({ case (a,b) => Some((a, (b, a+b))) })
   def fromUnfold(n: Int): Stream[Int] = unfold(n)(n => Some((n, n+1)) )
   def constantUnfold[A](a: A): Stream[A] = unfold(a)(a => Some((a, a)) )
+
 }
